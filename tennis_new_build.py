@@ -132,6 +132,7 @@ respawn = False
 left_scored = False
 right_scored = False
 whoscored = canvas.create_text(350, 20, font='Arial 20', fill='red')
+color = ['blue', 'magenta', 'cyan', 'green', 'red', 'yellow', 'orange', 'pink', 'violet']
 
 def change_move():
     global ball_Y_move, ball_X_move, window_width, window_height, left_paddle, right_paddle
@@ -153,8 +154,10 @@ def change_move():
     right_paddle_bottom = right_paddle_pos[3]
     if ball_top <= 0:
         ball_Y_move = ball_speed
+        canvas.itemconfig(whoscored, text='', fill='black')
     if ball_bottom >= window_height:
         ball_Y_move = -ball_speed
+        canvas.itemconfig(whoscored, text='', fill='black')
     if ball_left < 0:
         right_player_points += 1
         canvas.itemconfig(right_player_score, text=right_player_points)
@@ -168,7 +171,8 @@ def change_move():
                                   window_height/2 + paddle_height/2)
         right_scored = True
         canvas.coords(ball, 355, 195, 365, 205)
-        canvas.itemconfig(whoscored, text='Забил второй', fill='magenta')
+        random.shuffle(color)
+        canvas.itemconfig(whoscored, text='Забил второй', fill=color[0])
         respawn = True
     if ball_right > window_width:
         left_player_points += 1
@@ -183,7 +187,8 @@ def change_move():
                                   window_height/2 + paddle_height/2)
         left_scored = True
         canvas.coords(ball, 355, 195, 365, 205)
-        canvas.itemconfig(whoscored, text='Забил первый', fill='blue')
+        random.shuffle(color)
+        canvas.itemconfig(whoscored, text='Забил первый', fill=color[0])
         respawn = True
     if (ball_left == left_paddle_side) and (left_paddle_top < ball_center < left_paddle_bottom):
         ball_X_move = ball_speed

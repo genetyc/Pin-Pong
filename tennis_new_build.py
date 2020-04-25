@@ -45,6 +45,7 @@ right_paddle_speed = 0
 
 left_player_points = 0
 right_player_points = 0
+goal = 5
 
 score_diff_x = 40
 score_diff_y = 20
@@ -137,7 +138,7 @@ color = ['blue', 'magenta', 'cyan', 'green', 'red', 'yellow', 'orange', 'pink', 
 def change_move():
     global ball_Y_move, ball_X_move, window_width, window_height, left_paddle, right_paddle
     global left_player_score, left_player_points, right_player_score, right_player_points
-    global respawn, fin, left_scored, right_scored, whoscored
+    global respawn, fin, left_scored, right_scored, whoscored, goal
     ball_pos = canvas.coords(ball)
     ball_left = ball_pos[0]
     ball_top = ball_pos[1]
@@ -172,7 +173,10 @@ def change_move():
         right_scored = True
         canvas.coords(ball, 355, 195, 365, 205)
         random.shuffle(color)
-        canvas.itemconfig(whoscored, text='Забил второй', fill=color[0])
+        if right_player_points <= goal - 1:
+            canvas.itemconfig(whoscored, text='Забил второй', fill=color[1])
+        else:
+            canvas.itemconfig(whoscored, text='', fill=color[1])
         respawn = True
     if ball_right > window_width:
         left_player_points += 1
@@ -188,7 +192,10 @@ def change_move():
         left_scored = True
         canvas.coords(ball, 355, 195, 365, 205)
         random.shuffle(color)
-        canvas.itemconfig(whoscored, text='Забил первый', fill=color[0])
+        if left_player_points <= goal - 1:
+            canvas.itemconfig(whoscored, text='Забил первый', fill=color[1])
+        else:
+            canvas.itemconfig(whoscored, text='', fill=color[1])
         respawn = True
     if (ball_left == left_paddle_side) and (left_paddle_top < ball_center < left_paddle_bottom):
         ball_X_move = ball_speed
@@ -211,12 +218,12 @@ def spawn():
 itstimetoquit = False
 
 def exit():
-    global left_player_points, right_player_points, itstimetoquit
-    if left_player_points == 5:
+    global left_player_points, right_player_points, itstimetoquit, goal
+    if left_player_points == goal:
         canvas.create_text(350, 200, text='Выиграл первый!', font='Arial 25', fill='yellow')
         canvas.itemconfig(ball, fill='black', outline='black')
         itstimetoquit = True
-    if right_player_points == 5:
+    if right_player_points == goal:
         canvas.create_text(350, 200, text='Выиграл второй!', font='Arial 25', fill='yellow')
         canvas.itemconfig(ball, fill='black', outline='black')        
         itstimetoquit = True

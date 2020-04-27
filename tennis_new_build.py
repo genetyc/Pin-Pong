@@ -13,7 +13,8 @@ window.title('pong')
 window.geometry('700x400')
 window.resizable(0, 0)
 window.wm_attributes('-topmost', 1)
-canvas = tk.Canvas(window, width = window_width, height = window_height, background = 'black')
+bg_color = 'black'
+canvas = tk.Canvas(window, width = window_width, height = window_height, background = bg_color)
 canvas.pack()
 
 ball = canvas.create_oval(355, 195, 365, 205, fill='white', outline='white')
@@ -138,7 +139,7 @@ color = ['blue', 'magenta', 'cyan', 'green', 'red', 'yellow', 'orange', 'pink', 
 def change_move():
     global ball_Y_move, ball_X_move, window_width, window_height, left_paddle, right_paddle
     global left_player_score, left_player_points, right_player_score, right_player_points
-    global respawn, fin, left_scored, right_scored, whoscored, goal
+    global respawn, fin, left_scored, right_scored, whoscored, goal, bg_color
     ball_pos = canvas.coords(ball)
     ball_left = ball_pos[0]
     ball_top = ball_pos[1]
@@ -155,10 +156,10 @@ def change_move():
     right_paddle_bottom = right_paddle_pos[3]
     if ball_top <= 0:
         ball_Y_move = ball_speed
-        canvas.itemconfig(whoscored, text='', fill='black')
+        canvas.itemconfig(whoscored, text='', fill=bg_color)
     if ball_bottom >= window_height:
         ball_Y_move = -ball_speed
-        canvas.itemconfig(whoscored, text='', fill='black')
+        canvas.itemconfig(whoscored, text='', fill=bg_color)
     if ball_left < 0:
         right_player_points += 1
         canvas.itemconfig(right_player_score, text=right_player_points)
@@ -221,11 +222,15 @@ def exit():
     global left_player_points, right_player_points, itstimetoquit, goal
     if left_player_points == goal:
         canvas.create_text(350, 200, text='Выиграл первый!', font='Arial 25', fill='yellow')
-        canvas.itemconfig(ball, fill='black', outline='black')
+        canvas.delete(ball)
+        canvas.delete(left_paddle)
+        canvas.delete(right_paddle)
         itstimetoquit = True
     if right_player_points == goal:
         canvas.create_text(350, 200, text='Выиграл второй!', font='Arial 25', fill='yellow')
-        canvas.itemconfig(ball, fill='black', outline='black')        
+        canvas.delete(ball)
+        canvas.delete(left_paddle)
+        canvas.delete(right_paddle)        
         itstimetoquit = True
 
 

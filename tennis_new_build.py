@@ -217,20 +217,38 @@ def spawn():
 
 
 itstimetoquit = False
-
+phrases = ['Игра была равной!', 'Это было круто!', 'Разгром!', 'Без шансов!', 'В одни ворота!']
 def exit():
-    global left_player_points, right_player_points, itstimetoquit, goal
+    global left_player_points, right_player_points, itstimetoquit, goal, phrases
     if left_player_points == goal:
-        canvas.create_text(350, 200, text='Выиграл первый!', font='Arial 25', fill='gold')
-        canvas.delete(ball)
-        canvas.delete(left_paddle)
-        canvas.delete(right_paddle)
+        canvas.create_text(350, 190, text='Выиграл первый!', font='Arial 25', fill='gold')
+        canvas.create_text(350, 225, text=(left_player_points, ':', right_player_points), font='Arial 25', fill='gold')
+        canvas.delete(ball, left_paddle, right_paddle, right_player_score, left_player_score)
+        if left_player_points - right_player_points == 1:
+            canvas.create_text(350, 250, text=phrases[0], font='Arial 25', fill='gold')
+        elif left_player_points - right_player_points == 2:
+            canvas.create_text(350, 250, text=phrases[1], font='Arial 25', fill='gold')
+        elif left_player_points - right_player_points == 3:
+            canvas.create_text(350, 250, text=phrases[2], font='Arial 25', fill='gold')
+        elif left_player_points - right_player_points == 4:
+            canvas.create_text(350, 250, text=phrases[3], font='Arial 25', fill='gold')
+        elif left_player_points - right_player_points == 5:
+            canvas.create_text(350, 250, text=phrases[4], font='Arial 25', fill='gold')
         itstimetoquit = True
     if right_player_points == goal:
-        canvas.create_text(350, 200, text='Выиграл второй!', font='Arial 25', fill='gold')
-        canvas.delete(ball)
-        canvas.delete(left_paddle)
-        canvas.delete(right_paddle)        
+        canvas.create_text(350, 190, text='Выиграл второй!', font='Arial 25', fill='gold')
+        canvas.create_text(350, 225, text=(right_player_points, ':', left_player_points), font='Arial 25', fill='gold')
+        canvas.delete(ball, left_paddle, right_paddle, right_player_score, left_player_score)
+        if right_player_points - left_player_points == 1:
+            canvas.create_text(350, 250, text=phrases[0], font='Arial 25', fill='gold')
+        elif right_player_points - left_player_points == 2:
+            canvas.create_text(350, 250, text=phrases[1], font='Arial 25', fill='gold')
+        elif right_player_points - left_player_points == 3:
+            canvas.create_text(350, 250, text=phrases[2], font='Arial 25', fill='gold')
+        elif right_player_points - left_player_points == 4:
+            canvas.create_text(350, 250, text=phrases[3], font='Arial 25', fill='gold')
+        elif right_player_points - left_player_points == 5:
+            canvas.create_text(350, 250, text=phrases[4], font='Arial 25', fill='gold')        
         itstimetoquit = True
 
 

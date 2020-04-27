@@ -221,13 +221,13 @@ itstimetoquit = False
 def exit():
     global left_player_points, right_player_points, itstimetoquit, goal
     if left_player_points == goal:
-        canvas.create_text(350, 200, text='Выиграл первый!', font='Arial 25', fill='yellow')
+        canvas.create_text(350, 200, text='Выиграл первый!', font='Arial 25', fill='gold')
         canvas.delete(ball)
         canvas.delete(left_paddle)
         canvas.delete(right_paddle)
         itstimetoquit = True
     if right_player_points == goal:
-        canvas.create_text(350, 200, text='Выиграл второй!', font='Arial 25', fill='yellow')
+        canvas.create_text(350, 200, text='Выиграл второй!', font='Arial 25', fill='gold')
         canvas.delete(ball)
         canvas.delete(left_paddle)
         canvas.delete(right_paddle)        

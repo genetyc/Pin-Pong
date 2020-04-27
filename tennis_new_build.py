@@ -264,12 +264,17 @@ def process():
     left_paddle_stop()
     right_paddle_stop()
     spawn()
+    canvas.delete(warning1)
+    canvas.delete(warning2)
     exit()
     destroy()
     window.after(30, process)
 
+warning1 = canvas.create_text(350, 15, text='Для начала игры нажмите Enter', font='Arial 15', fill='red')
+warning2 = canvas.create_text(350, 35, text='Используйте стрелочки и WS для управления', font='Arial 15', fill='red')
 
-
-process()
+def process_game(event):
+    process()
+canvas.bind('<KeyPress-Return>', process_game)
 
 window.mainloop()

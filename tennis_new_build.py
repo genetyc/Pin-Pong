@@ -275,6 +275,9 @@ warning2 = canvas.create_text(350, 35, text='Используйте стрело
 
 def process_game(event):
     process()
+    canvas.unbind('<KeyPress-Return>')
+
+    
 canvas.bind('<KeyPress-Return>', process_game)
 
 window.mainloop()

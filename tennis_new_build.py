@@ -308,7 +308,6 @@ def process():
         canvas.delete(warning2)
         canvas.delete(warning3)
         exit()
-        destroy()
         window.after(30, process)
     elif GameStatus == "pause":
         window.after(100, process)
